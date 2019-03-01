@@ -7,5 +7,5 @@ $command = '. "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MS
 Invoke-Expression $command
 Write-EventLog -LogName Application -Source 'BuildScript' -EntryType Information -EventId 1 -Message 'Completed NuGet Restore'
 
-Start-Process powershell -ArgumentList 'C:\Repos\Core\Build\start.ps1 -Task CI.DscModule'
-Start-Process powershell -ArgumentList 'C:\Repos\Core\Build\start.ps1 -Task CI.PowerShell'
+Start-Process powershell -ArgumentList '-noexit C:\Repos\Core\Build\start.ps1 -Task CI.DscModule' 
+Start-Process powershell -ArgumentList '-noexit C:\Repos\Core\Build\start.ps1 -Task CI.PowerShell'

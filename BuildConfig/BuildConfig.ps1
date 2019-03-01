@@ -5,14 +5,14 @@ git config --global credential.scmpeoc3t.army.mil.authority negotiate
 Find-PackageProvider -Name 'Nuget' -ForceBootstrap -IncludeDependencies
 Install-Module Pester -Force -SkipPublisherCheck -Confirm:$false
 
-Update-Help
+Update-Help -Force -Confirm:$false
 
-winrm quickconfig
+winrm quickconfig -quiet
 
 
-
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 New-Item 'C:\Repo' -ItemType Directory
-git clone "https://github.com/rchristman89/BuildServer.git" "C:\Repo"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/rchristman89/BuildServer/master/packages.config" -OutFile "C:\packages.config"
 
-$command = '. "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\ReadyRoll\OctoPack\build\NuGet.exe" install "C:\repo\packages.config" -OutputDirectory "C:\repo\source\Solutions\packages"'
+$command = '. "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\ReadyRoll\OctoPack\build\NuGet.exe" install "C:\packages.config" -OutputDirectory "C:\NuGetpackages"'
 Invoke-Expression $command

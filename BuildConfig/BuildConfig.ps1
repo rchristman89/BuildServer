@@ -23,13 +23,14 @@ Write-EventLog -LogName Application -Source 'BuildScript' -EntryType Information
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/rchristman89/BuildServer/master/packages.config' -OutFile 'C:\packages.config'
 
-Do
+if(Test-Path 'C:\Repo\Core\Source\Solutions')
 {
-    Write-EventLog -LogName Application -Source 'BuildScript' -EntryType Information -EventId 1 -Message 'Waiting for Repo to Clone'
-    Start-Sleep -Seconds 30
-}until((Test-Path 'C:\Repo\Source\Solutions') -eq $true)
-
-Write-EventLog -LogName Application -Source 'BuildScript' -EntryType Information -EventId 1 -Message 'Performing NuGet Restore'
-$command = '. "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\ReadyRoll\OctoPack\build\NuGet.exe" install "C:\packages.config" -OutputDirectory "C:\Repos\Core\Source\Solutions"'
-Invoke-Expression $command
-Write-EventLog -LogName Application -Source 'BuildScript' -EntryType Information -EventId 1 -Message 'Completed NuGet Restore'
+    Write-EventLog -LogName Application -Source 'BuildScript' -EntryType Information -EventId 1 -Message 'Performing NuGet Restore'
+    $command = '. "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\ReadyRoll\OctoPack\build\NuGet.exe" install "C:\packages.config" -OutputDirectory "C:\Repos\Core\Source\Solutions"'
+    Invoke-Expression $command
+    Write-EventLog -LogName Application -Source 'BuildScript' -EntryType Information -EventId 1 -Message 'Completed NuGet Restore'
+}
+else
+{
+    Write-EventLog -LogName Application -Source 'BuildScript' -EntryType Information -EventId 1 -Message 'First Run'
+}

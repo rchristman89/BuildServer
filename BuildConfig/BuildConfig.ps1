@@ -2,7 +2,8 @@
 git config --global credential.helper wincred
 git config --global credential.scmpeoc3t.army.mil.authority negotiate
 
-Install-Module Pester -Force -SkipPublisherCheck
+Find-PackageProvider -Name 'Nuget' -ForceBootstrap -IncludeDependencies
+Install-Module Pester -Force -SkipPublisherCheck -Confirm:$false
 
 Update-Help
 

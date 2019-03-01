@@ -1,9 +1,9 @@
 ﻿New-EventLog –LogName Application –Source 'BuildScript'
 
 Write-EventLog -LogName Application -Source 'BuildScript' -EntryType Information -EventId 1 -Message 'Configuring git'
-git config --global http.sslverify false
-git config --global credential.helper wincred
-git config --global credential.scmpeoc3t.army.mil.authority negotiate
+git config --add --system http.sslverify false
+git config --add --system credential.helper wincred
+git config --add --system credential.scmpeoc3t.army.mil.authority negotiate
 Write-EventLog -LogName Application -Source 'BuildScript' -EntryType Information -EventId 1 -Message 'Configured git'
 
 Write-EventLog -LogName Application -Source 'BuildScript' -EntryType Information -EventId 1 -Message 'Installing Pester'

@@ -22,3 +22,4 @@ Write-EventLog -LogName Application -Source 'BuildScript' -EntryType Information
 Write-EventLog -LogName Application -Source 'BuildScript' -EntryType Information -EventId 1 -Message 'Downloading Package list'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/rchristman89/BuildServer/master/packages.config' -OutFile 'C:\packages.config'
+Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/rchristman89/BuildServer/master/BuildConfig/BuildConfig2.ps1' -OutFile 'C:\DownloadRepo.ps1'
